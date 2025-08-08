@@ -3,18 +3,18 @@ def OrdenarNombre(lista):
         return lista
     else:
         pivote = lista[0]
-        mayores = [x for x in lista[1:] if x["dorsal"]["nombre"] > pivote]
-        iguales = [x for x in lista if x["dorsal"]["nombre"] == pivote]
-        menores = [x for x in lista[1:] if x["dorsal"]["nombre"] < pivote]
+        mayores = [x for x in lista[1:] if x[dorsal]["nombre"] > pivote[dorsal]["nombre"]]
+        iguales = [x for x in lista if x[dorsal]["nombre"] == pivote[dorsal]["nombre"]]
+        menores = [x for x in lista[1:] if x[dorsal]["nombre"] < pivote[dorsal]["nombre"]]
         return OrdenarNombre(menores) + iguales + OrdenarNombre(mayores)
 def OrdenarEdad(lista):
     if len(lista) <= 0:
         return lista
     else:
         pivote = lista[0]
-        mayores = [x for x in lista[1:] if x[dorsal]["edad"] > pivote]
-        iguales = [x for x in lista if x[dorsal]["edad"] == pivote]
-        menores = [x for x in lista[1:] if x[dorsal]["edad"] < pivote]
+        mayores = [x for x in lista[1:] if x[dorsal]["edad"] > pivote[dorsal]["edad"]]
+        iguales = [x for x in lista if x[dorsal]["edad"] == pivote[dorsal]["edad"]]
+        menores = [x for x in lista[1:] if x[dorsal]["edad"] < pivote[dorsal]["edad"]]
         return OrdenarNombre(menores) + iguales + OrdenarNombre(mayores)
 Participante ={}
 Participantes = []
@@ -23,15 +23,15 @@ while True:
     print("2. Mostrar participantes por nombre.")
     print("3. Mostrar participantes por edad.")
     print("4. Salir")
-    opcion = int(input("Ingrese una opcion"))
+    opcion = int(input("Ingrese una opcion: "))
     match opcion:
         case 1:
-            numParticipantes = int(input("Ingrese la cantidad de participantes"))
+            numParticipantes = int(input("Ingrese la cantidad de participantes: "))
             for i in range(numParticipantes):
-                dorsal = int(input("Ingrese el dorsal"))
-                nombre = input("Ingrese nombre")
-                edad = int(input("Ingrese edad"))
-                categoria = input("Ingrese categoria (juvenil, adulto, máster)")
+                dorsal = int(input("Ingrese el dorsal: "))
+                nombre = input("Ingrese nombre: ")
+                edad = int(input("Ingrese edad: "))
+                categoria = input("Ingrese categoria (juvenil, adulto, máster): ")
                 Participante[dorsal] = {
                     "nombre": nombre,
                     "edad": edad,
@@ -43,13 +43,15 @@ while True:
         case 2:
             print("Lista ordenada por nombre de los participantes")
             OrdenadosNombre = OrdenarNombre(Participantes)
-            for participante in OrdenadosNombre:
-                print(f"{participante['nombre']}: con la edad de: {participante["edad"]} está en la categoría: {participante['categoria']}")
+            for corredor in OrdenadosNombre:
+                for clave, value in corredor.items():
+                    print(f"Dorsal: {clave} Nombre: {value["nombre"]} edad: {value['edad']} Categoria: {value['categoria']}")
         case 3:
             print("Lista ordenada por edad de los participantes")
             OrdenadosEdad = OrdenarEdad(Participantes)
-            for participante in OrdenadosEdad:
-                print(f"{participante['nombre']}: con la edad de: {participante["edad"]} está en la categoría: {participante['categoria']}")
+            for corredor in OrdenadosEdad:
+                for clave, value in corredor.items():
+                    print(f"Dorsal: {clave} Nombre: {value["nombre"]} edad: {value['edad']} Categoria: {value['categoria']}")
         case 4:
             print("Saliendo del programa....")
             break
